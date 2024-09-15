@@ -1,0 +1,37 @@
+/* /* Custom Styles */
+body {
+    background-color: #f8f9fa;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.card {
+    margin-top: 20px;
+}
+
+.card-header {
+    font-size: 1.25rem;
+}
+
+#adminActions .btn {
+    min-width: 200px;
+    margin-bottom: 10px;
+}
+
+#questionsContainer .question-item {
+    padding: 15px;
+    border: 1px solid #dee2e6;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.question-item h3 {
+    font-size: 1.1rem;
+}
+
+footer p {
+    margin: 0;
+}
