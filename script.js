@@ -1,3 +1,6 @@
+let username = '';  // Variable to store the username
+let hasUsername = false;  // Flag to check if username has been collected
+
 document.querySelector('.chat-button').addEventListener('click', function() {
     document.querySelector('.chat-button').style.display = "none";
     document.querySelector('.chat-box').style.visibility = "visible";
@@ -55,27 +58,37 @@ document.querySelector('.send').addEventListener('click', async function() {
 
     if (!query) return;
 
-    // Add user's message to chat box
-    addMessageToChatBox(query, true);
+    // Check if username has been provided
+    if (!hasUsername) {
+        // Collect the username
+        username = query;
+        addMessageToChatBox(`Nice to meet you, ${username}! How can I help you today?`, false);
+        hasUsername = true;  // Set the flag to true
+        inputElement.placeholder = "Enter Your Message";  // Change placeholder to normal message input
+    } else {
+        // Add user's message to chat box
+        addMessageToChatBox(`${username}: ${query}`, true);
 
-    // Call API
-    try {
-        const response = await fetch(`http://localhost:3001/api/questions/search?query=${encodeURIComponent(query)}`);
-        const data = await response.json();
+        // Call API
+        try {
+            const response = await fetch(`http://localhost:3001/api/questions/search?query=${encodeURIComponent(query)}`);
+            const data = await response.json();
 
-        if (response.ok) {
-            addMessageToChatBox(data.answer, false);
-        } else {
-            addMessageToChatBox('Sorry, I could not find an answer to your question.', false);
+            if (response.ok) {
+                addMessageToChatBox(data.answer, false);
+            } else {
+                addMessageToChatBox('Sorry, I could not find an answer to your question.', false);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            addMessageToChatBox('Error connecting to the server. Please try again later.', false);
         }
-    } catch (error) {
-        console.error('Error:', error);
-        addMessageToChatBox('Error connecting to the server. Please try again later.', false);
     }
 
     // Clear input field
     inputElement.value = '';
 });
+
 
 // Optionally add enter key functionality for sending messages
 document.querySelector('input[type="text"]').addEventListener('keypress', function(event) {

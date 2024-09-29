@@ -5,6 +5,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     const password = document.getElementById('password').value;
     
     fetch('http://localhost:3001/api/login', {
+    // fetch('https://api.visualchatlinktitbot.com/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password: password })
@@ -144,7 +145,7 @@ document.getElementById('getAllQuestions').addEventListener('click', function() 
             questionElement.innerHTML = `
                 <h3>Question: ${question.question}</h3>
                 <p><strong>Answer:</strong> ${question.answer}</p>
-                <p><em>ID:</em> ${question._id}</p>
+                <p><em>ID:</em> ${question.id}</p>
             `;
             questionsContainer.appendChild(questionElement);
         });
